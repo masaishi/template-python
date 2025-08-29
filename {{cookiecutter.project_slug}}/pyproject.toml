@@ -51,7 +51,6 @@ fixable = ["ALL"]
 "tests/**" = ["S101"]
 "*/*_test.py" = ["S101"]
 
-
 [tool.ruff.format]
 quote-style = "double"
 indent-style = "space"
@@ -60,3 +59,15 @@ line-ending = "auto"
 [tool.coverage.run]
 source = ["src"]
 omit = ["*/tests/*", "*_test.py"]
+
+[tool.pyright]
+typeCheckingMode = "strict"
+include = ["src"]
+exclude = [
+    ".venv",
+    "venv",
+    "build",
+    "dist",
+    "__pycache__",
+    "migrations",
+]
