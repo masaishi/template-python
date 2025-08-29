@@ -36,7 +36,7 @@ select = [
     "C4",  # flake8-comprehensions: cleaner, faster comprehensions & literal rewrites.
     "UP",  # pyupgrade: modernize syntax (PEP 585/604, f-strings, etc.) safely.
 
-    # ---- Recommended additions for an AI voice agent ----
+    # ---- Recommended additions ----
     "B",      # flake8-bugbear: common footguns (mutable defaults, zip strictness, etc.).
     "N",      # pep8-naming: consistent naming for classes/functions/args; aids readability.
     "SIM",    # flake8-simplify: reduce unnecessary nesting/branches; simpler control flow.
