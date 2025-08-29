@@ -23,12 +23,28 @@ dev = [
 package = true
 
 [tool.ruff]
-line-length = 79
+line-length = 140
 exclude = [".venv", "venv", "migrations", "__pycache__", "build", "dist"]
 target-version = "py313"
 
 [tool.ruff.lint]
-select = ["E", "F"]
+select = [
+    # ---- Core correctness & style (already in your config) ----
+    "E",   # pycodestyle (errors): basic whitespace, indentation, and syntax pitfalls.
+    "W",   # pycodestyle (warnings): non-fatal style issues that still catch real mistakes.
+    "F",   # Pyflakes: undefined names, unused variables/imports—high signal for bugs.
+    "I",   # isort: import sorting & grouping for consistent and readable imports.
+    "C4",  # flake8-comprehensions: cleaner, faster comprehensions & literal rewrites.
+    "UP",  # pyupgrade: modernize syntax (PEP 585/604, f-strings, etc.) safely.
+
+    # ---- Recommended additions for an AI voice agent ----
+    "B",      # flake8-bugbear: common footguns (mutable defaults, zip strictness, etc.).
+    "N",      # pep8-naming: consistent naming for classes/functions/args; aids readability.
+    "SIM",    # flake8-simplify: reduce unnecessary nesting/branches; simpler control flow.
+    "ASYNC",  # flake8-async: forbid blocking I/O in async funcs; safer concurrency.
+    "S",      # bandit (security): flags risky patterns (no timeout, shell=True, SQL concat).
+    "PTH",    # flake8-use-pathlib: prefer pathlib over os.path for file/system code.
+]
 fixable = ["ALL"]
 
 [tool.ruff.format]
