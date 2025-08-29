@@ -13,10 +13,9 @@ dependencies = []
 [dependency-groups]
 dev = [
     "pytest-cov>=6.0.0",
-    "pytest>=8.3.4",
-    "ruff>=0.9.6",
-    "pyright>=1.1.394",
-    "invoke>=2.2.0",
+    "pytest>=8.4.1",
+    "ruff>=0.12.11",
+    "pyright>=1.1.404",
 ]
 
 [tool.uv]
