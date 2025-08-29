@@ -7,7 +7,7 @@ ENV PYTHONUNBUFFERED=1 \
     PIP_DISABLE_PIP_VERSION_CHECK=on
 
 # Install uv
-RUN pip install uv
+RUN pip install --no-cache-dir uv
 
 # Create and set the working directory
 WORKDIR /app
@@ -15,8 +15,8 @@ WORKDIR /app
 # Copy the project files
 COPY . /app
 
-# Create virtual environment using uv and install dependencies
-RUN uv venv && uv pip install -e ".[dev]"
+# Install project dependencies (including dev) using uv
+RUN uv sync --dev --frozen
 
 # Default command (override in docker-compose)
-CMD ["uv", "run", "src/{{cookiecutter.project_slug}}"]
+CMD ["uv", "run", "-m", "{{cookiecutter.project_slug}}"]
