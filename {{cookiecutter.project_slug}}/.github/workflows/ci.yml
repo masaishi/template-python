@@ -27,7 +27,7 @@ jobs:
       - name: Run Ruff check
         run: uv run ruff check .
 
-      - name: Check formatting (Ruff)
+      - name: Run Ruff format check
         run: uv run ruff format --check .
 
       - name: Set up Node.js
