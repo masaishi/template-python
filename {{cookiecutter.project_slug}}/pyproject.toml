@@ -3,7 +3,7 @@ name = "{{cookiecutter.project_slug}}"
 version = "0.1.0"
 description = "{{cookiecutter.project_short_description}}"
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.14"
 license = { text = "{{cookiecutter.open_source_license}}"}
 authors = [
   {name = "{{cookiecutter.full_name}}", email = "{{cookiecutter.email}}"}
@@ -12,42 +12,68 @@ dependencies = []
 
 [dependency-groups]
 dev = [
-    "pytest-cov>=6.0.0",
-    "pytest>=8.4.1",
-    "ruff>=0.12.11",
-    "pyright>=1.1.404",
+    "pytest>=9.0.0",
+    "ruff>=0.14.0",
+    "pyright>=1.1.408",
 ]
 
 [tool.uv]
 package = true
 
 [tool.ruff]
-line-length = 140
-exclude = [".venv", "venv", "migrations", "__pycache__", "build", "dist"]
-target-version = "py313"
+line-length = 119
+target-version = "py314"
+exclude = [
+    ".venv",
+    "__pycache__",
+    "*.pyc",
+    ".git",
+    ".pytest_cache",
+    ".ruff_cache",
+]
 
 [tool.ruff.lint]
 select = [
-    # ---- Core correctness & style (already in your config) ----
-    "E",   # pycodestyle (errors): basic whitespace, indentation, and syntax pitfalls.
-    "W",   # pycodestyle (warnings): non-fatal style issues that still catch real mistakes.
-    "F",   # Pyflakes: undefined names, unused variables/imports—high signal for bugs.
-    "I",   # isort: import sorting & grouping for consistent and readable imports.
-    "C4",  # flake8-comprehensions: cleaner, faster comprehensions & literal rewrites.
-    "UP",  # pyupgrade: modernize syntax (PEP 585/604, f-strings, etc.) safely.
+    # Core quality
+    "E",   # pycodestyle errors
+    "F",   # pyflakes
+    "I",   # isort
+    "UP",  # pyupgrade
+    "B",   # flake8-bugbear
+    "SIM", # flake8-simplify
+    "C4",  # flake8-comprehensions
 
-    # ---- Recommended additions ----
-    "B",      # flake8-bugbear: common footguns (mutable defaults, zip strictness, etc.).
-    "N",      # pep8-naming: consistent naming for classes/functions/args; aids readability.
-    "SIM",    # flake8-simplify: reduce unnecessary nesting/branches; simpler control flow.
-    "ASYNC",  # flake8-async: forbid blocking I/O in async funcs; safer concurrency.
-    "S",      # bandit (security): flags risky patterns (no timeout, shell=True, SQL concat).
-    "PTH",    # flake8-use-pathlib: prefer pathlib over os.path for file/system code.
+    # Exception handling
+    "TRY", # tryceratops
+
+    # Async/await
+    "ASYNC", # flake8-async
+
+    # Type checking
+    "TCH", # flake8-type-checking
+    "FA",  # flake8-future-annotations
+
+    # Security
+    "S", # flake8-bandit
+
+    # Code quality
+    "ARG",  # flake8-unused-arguments
+    "PERF", # perflint - performance
+    "RUF",  # ruff-specific rules
+    "PIE",  # flake8-pie
+    "RET",  # flake8-return
+    "SLF",  # flake8-self
+
+    # Path operations
+    "PTH", # flake8-use-pathlib
 ]
-fixable = ["ALL"]
+ignore = [
+    "TRY003", # Allow long exception messages inline
+    "S311",   # Allow standard pseudo-random generators (not used for security)
+    "RUF001", # Allow fullwidth characters in Japanese content
+]
 
 [tool.ruff.lint.per-file-ignores]
-# Allow "assert" (S101) in tests
 "tests/**" = ["S101"]
 "*/*_test.py" = ["S101"]
 
@@ -55,10 +81,6 @@ fixable = ["ALL"]
 quote-style = "double"
 indent-style = "space"
 line-ending = "auto"
-
-[tool.coverage.run]
-source = ["src"]
-omit = ["*/tests/*", "*_test.py"]
 
 [tool.pyright]
 typeCheckingMode = "strict"
